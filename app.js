@@ -11,7 +11,7 @@ $(document).ready(function() {
 		var apiKey = "dc6zaTOxFJmzC";
 		//api url
 		var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topicName + "&limit=10&rating=pg&fmt=json&api_key=" + apiKey;
-		//our ajax call method
+		//our ajax callback method
 		$.ajax ({
 			url:queryURL,
 			method: "GET"
@@ -64,11 +64,11 @@ $(document).ready(function() {
 		for (var i=0; i < topics.length; i++) {
 			//creating a button and storing it in a variable
 			var button = $("<button>");
-			//adding a class of topic to our button for later use
+			//adding a class of topic to our button for use in our event listener below
 			button.addClass("topic");
-			//grabbing the name value from each of our topics and setting them in the button
+			//adding a data attribute to the button for each topic in our array
 			button.attr("data-name", topics[i]);
-			//adding the text of each of our topics array to the button
+			//adding the text of each of our topics in the array to the button
 			button.text(topics[i]);
 			//appending the button to the topicButtons div in our html
 			$("#topicButtons").append(button);
@@ -90,7 +90,7 @@ $(document).ready(function() {
 	$(document).on("click", ".gif", imageState);
 	//event listener that using the displayTopicsInfo function as a delegate to display, when a topic is clicked, all the information we've requested from our api
 	$(document).on("click", ".topic", displayTopicsInfo);
-	//calling our topicsButtons fucntion to display the initial buttons from our array
+	//calling our topicsButtons function to display the initial buttons from our array
 	topicsButtons();
 
 });
