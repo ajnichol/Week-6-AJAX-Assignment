@@ -36,6 +36,8 @@ $(document).ready(function() {
 				topicsDiv.append(topicImage);
 				//prepending our images to the topicsImages div in our html
 				$("#topicImages").prepend(topicsDiv);
+				//
+				topicImage.on("click", imageState);
 
 			};
 
@@ -44,18 +46,20 @@ $(document).ready(function() {
 	};
 
 	function imageState() {
+		
+        var $this = $(this);
 
-		var imageState = $("img").attr("data-state");
+        var imageState = $this.attr("data-state");
 
-		if (imageState === "still") {
-			$("img").attr("src", $("img").attr("data-animate"));
-			$("img").attr("data-state", "animate");
-		}
-		else {
-			$("img").attr("src", $("img").attr("data-still"));
-			$("img").attr("data-state", "still");
-		}
-	};
+        if (imageState === "still") {
+           $this.attr("src", $this.attr("data-animate"));
+           $this.attr("data-state", "animate");
+        }
+        else {
+           $this.attr("src", $this.attr("data-still"));
+           $this.attr("data-state", "still");
+        }
+    };
 
 	function topicsButtons() {
 		//avoiding multiple button creation inside the topicButtons div
@@ -72,6 +76,8 @@ $(document).ready(function() {
 			button.text(topics[i]);
 			//appending the button to the topicButtons div in our html
 			$("#topicButtons").append(button);
+			//
+			button.on("click", displayTopicsInfo);
 
 		};
 	};
@@ -86,10 +92,6 @@ $(document).ready(function() {
 		//calling our function topicsButtons to create a new button
 		topicsButtons();
 	});
-	//event listener that using the imageState function as a delegate to change the image's state from still to animate
-	$(document).on("click", ".gif", imageState);
-	//event listener that using the displayTopicsInfo function as a delegate to display, when a topic is clicked, all the information we've requested from our api
-	$(document).on("click", ".topic", displayTopicsInfo);
 	//calling our topicsButtons function to display the initial buttons from our array
 	topicsButtons();
 
