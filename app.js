@@ -5,7 +5,7 @@ $(document).ready(function() {
 	function displayTopicsInfo() {
 
 		var topicName = $(this).attr("data-name");
-		//if our user adds a topic with spaces this function will format it for URLs
+		//if our user adds a topic with spaces this function will format it for urls
 		topicName = encodeURI(topicName);
 		//giphy api key
 		var apiKey = "dc6zaTOxFJmzC";
@@ -22,21 +22,27 @@ $(document).ready(function() {
 			for(var i=0; i < results.length; i++) {
 				//creating and storing a div with a class of topic
 				var topicsDiv = $("<div class='topic'>");
+				//letting our user know they can click to animate the gifs
+				var user = $("<p> " + "Click To Animate" + "</p>");
+				//appending our user variable to the topicsDiv
+				topicsDiv.append(user);
 				//retreiving the rating for each image from our api
 				var rating = results[i].rating;
 				//creating a paragraph element and setting its text to the rating of each image
 				var displayRating = $("<p>").text("Rating: " + rating);
 				//appending the paragraph element to the topicsDiv for display
 				topicsDiv.append(displayRating);
-				//retreiving the url for each image in our api
+				//retreiving the still url for each image in our api
 				var image = results[i].images.fixed_height_still.url;
+				//retreiving the animated url for each image in our api
+				var animatedImage = results[i].images.fixed_height.url;
 				//creating an image element and setting its source to api's fixed_height_still image
-				var topicImage = $("<img data-state='still' data-still='http://media1.giphy.com/media/xT8qBqIytkBbLjimru/200_s.gif' data-animate='http://media1.giphy.com/media/xT8qBqIytkBbLjimru/200.gif' class='gif'>").attr("src", image);
+				var topicImage = $("<img data-state='still' data-still='" + image + "' data-animate='"+ animatedImage +"' class='gif'>").attr("src", image);
 				//appending each image in our array to the topicDiv
 				topicsDiv.append(topicImage);
 				//prepending our images to the topicsImages div in our html
 				$("#topicImages").prepend(topicsDiv);
-				//
+				//event that calls our imageState function to display animated or still image 
 				topicImage.on("click", imageState);
 
 			};
@@ -46,7 +52,7 @@ $(document).ready(function() {
 	};
 
 	function imageState() {
-		
+
         var $this = $(this);
 
         var imageState = $this.attr("data-state");
@@ -67,7 +73,7 @@ $(document).ready(function() {
 		//looping through our topics array to create and display a button for each topic
 		for (var i=0; i < topics.length; i++) {
 			//creating a button and storing it in a variable
-			var button = $("<button>");
+			var button = $("<button class='btn btn-small btn-primary'>");
 			//adding a class of topic to our button for use in our event listener below
 			button.addClass("topic");
 			//adding a data attribute to the button for each topic in our array
@@ -76,7 +82,7 @@ $(document).ready(function() {
 			button.text(topics[i]);
 			//appending the button to the topicButtons div in our html
 			$("#topicButtons").append(button);
-			//
+			//event that uses our displayTopicsInfo function as a delegate to display our data request from the api
 			button.on("click", displayTopicsInfo);
 
 		};
