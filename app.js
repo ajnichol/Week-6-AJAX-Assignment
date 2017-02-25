@@ -3,7 +3,7 @@ $(document).ready(function() {
 	var topics = ["tennis", "surfing", "hiking", "camping", "reading", "coding", "music", "concerts", "gaming", "movies"];
 
 	function displayTopicsInfo() {
-
+		//this is referring to our button that is calling the displayTopicsInfo function
 		var topicName = $(this).attr("data-name");
 		//if our user adds a topic with spaces this function will format it for urls
 		topicName = encodeURI(topicName);
@@ -52,11 +52,11 @@ $(document).ready(function() {
 	};
 
 	function imageState() {
-
+		//this is referring to our image which is calling our imageState function
         var $this = $(this);
-
+        //grabbing the the data-state value from the image and storing it in a variable
         var imageState = $this.attr("data-state");
-
+        //checking if the value of our image is "still" then animate and set its state to animate else set its state to still and its value to still
         if (imageState === "still") {
            $this.attr("src", $this.attr("data-animate"));
            $this.attr("data-state", "animate");
